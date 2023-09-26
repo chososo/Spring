@@ -43,7 +43,7 @@ public class MovieService {
     // 다건 조회
     @Transactional
     public List<MovieResponse> getMovies(Integer overYear) {
-        List<Movie> movies = movieRepository.findAllJpqlFetch();
+        List<Movie> movies = movieRepository.findByProductionYear(2012);
 
         return movies.stream().map(MovieResponse::of).toList();
     }
@@ -76,9 +76,15 @@ public class MovieService {
         movie.setName("변경3");
 
     }
-
+    // 단건 삭제
+@Transactional
     public void removeMovie(long movieId) {
+        //조회 후 삭제
+    // 영속성의 대상이 되는 객체를 들고올게요~
 
+    Movie movie = movieRepository.findById(movieId).orElseThrow();
+
+    movieRepository.delete(movie);
     }
 
     //requires_new -> 트랜젝션을 분리한다! 라고 생각하는 것이다.
