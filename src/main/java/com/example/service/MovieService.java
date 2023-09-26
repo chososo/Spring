@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.domain.entity.Director;
 import com.example.domain.entity.Log;
 import com.example.domain.entity.Movie;
 import com.example.domain.request.MovieRequest;
@@ -31,15 +32,20 @@ public class MovieService {
 
     }
 //단건 조회
+    @Transactional
     public MovieResponse getMovie(long movieId) {
         Movie movie = movieRepository.findById(movieId).orElseThrow();
         // 바로 매핑 안됨. optinonal 이라서
         // orElse , 만약 업슬 때 대체할 객체를 만들어 주기ㅗㄷ 합니다. key값을 찾지 못하면 thorw문 반환
+
         return MovieResponse.of(movie);
     }
-
+    // 다건 조회
+    @Transactional
     public List<MovieResponse> getMovies(Integer overYear) {
-return List.of();
+        List<Movie> movies = movieRepository.findAll();
+
+        return movies.stream().map(MovieResponse::of).toList();
     }
 //Transaction 붙으면 영속성의 객체가 된다.
     //Required는 default 입니다.
@@ -57,7 +63,7 @@ return List.of();
         logService.saveLog();
 
         //logService.saveLog();
-        throw new RuntimeException("강제에러 with log");
+     //   throw new RuntimeException("강제에러 with log");
     }
     @Transactional
     public void updateMovie(long movieId, MovieRequest movieRequest) {
