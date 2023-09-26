@@ -43,7 +43,7 @@ public class MovieService {
     // 다건 조회
     @Transactional
     public List<MovieResponse> getMovies(Integer overYear) {
-        List<Movie> movies = movieRepository.findAll();
+        List<Movie> movies = movieRepository.findAllJpqlFetch();
 
         return movies.stream().map(MovieResponse::of).toList();
     }
