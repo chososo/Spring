@@ -33,9 +33,7 @@ public class Movie {
     @JoinColumn(name = "director_id")
     private Director director;
 
-    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
-    // Collection 타입을 그냥 매핑이 안돼요...
-    private List<Actor> actors;
+
 
     // 기본생성자가 arg 없는 생성자 만들어 줘야합니다.
     public Movie(String name, int productionYear){
@@ -44,6 +42,21 @@ public class Movie {
 
     }
 
+
+    @OneToMany(
+            mappedBy = "movie",
+            fetch = FetchType.LAZY,
+            //cascade : fk 가 설정되어있는 db 에서 부모 또는 자원의 key가 되는 대상이 삭제 도미ㅕㄴ
+            // 관계되어있는 녀석들도 어떻게 하겠다~ 로 설정하는 것이다.
+            //move 객체가 생성될때 어떻게 하겠다~
+            // 모든것을 같이하는 걸로 일단 둘게요
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Actor> actors;
+//    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+//    // Collection 타입을 그냥 매핑이 안돼요...
+//    private List<Actor> actors;
 //    @Column(name="director_id")
 //    private LocalDateTime directorId;
 
