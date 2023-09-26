@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-
+@Setter
 @Getter
 @Table(name="movie")
 @NoArgsConstructor
@@ -24,6 +24,9 @@ public class Movie {
     private int productionYear;
     @Column(name="created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name="director_id")
+    private Long directorId;
 
     // 기본생성자가 arg 없는 생성자 만들어 줘야합니다.
     public Movie(String name, int productionYear){
