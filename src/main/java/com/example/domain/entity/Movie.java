@@ -54,7 +54,15 @@ public class Movie {
             orphanRemoval = true
     )
     private List<Actor> actors;
-//    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+
+    public void setDirector(Director director) {
+        this.director = director;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
+    //    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
 //    // Collection 타입을 그냥 매핑이 안돼요...
 //    private List<Actor> actors;
 //    @Column(name="director_id")
